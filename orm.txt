@@ -1,0 +1,48 @@
+from django.contrib.auth.models import User
+from news.models import *    
+from django.db.models import Max, Count
+
+new_user = User.objects.create_user('test_user')
+new_user = User.objects.create_user('test_user2') 
+
+Author.objects.create(full_name="bob sanders", author_id = 1) 
+Author.objects.create(full_name="bib flanders", author_id = 2)  
+
+Category.objects.create(Category_Name="Новости")
+Category.objects.create(Category_Name="Статьи") 
+Category.objects.create(Category_Name="Праздники") 
+Category.objects.create(Category_Name="Происшествия")
+
+Post.objects.create(name="первое сентября", choice=1, text="сегодня во всех учебных заведениях ученики празднуют первое сентября",header="первое сентября", author_id=1)
+Post.objects.create(name="первое сентября", choice=2, text="сегодня во всех учебных заведениях ученики празднуют первое сентября",header="первое сентября", author_id=1) 
+Post.objects.create(name="первое сентября", choice=2, text="сегодня во всех учебных заведениях ученики празднуют первое сентября",header="первое сентября", author_id=2)
+
+PostCategory.objects.create(post_id=1, category_id=1) (У меня тут возникла проблема, не получается присвоить несколько значений с категориями, как я понял это из-за того что связи один к одному.)
+PostCategory.objects.update(post_id=2, category_id=2) 
+
+Comment.objects.create(post_id=1, author_id=2, text="хорошая работа над текстом") 
+Comment.objects.create(post_id=1, author_id=3, text="хорошая работа над текстом") 
+Comment.objects.create(post_id=2, author_id=2, text="хорошая работа над текстом") 
+Comment.objects.create(post_id=2, author_id=3, text="хорошая работа над текстом") 
+
+Comment.objects.get(pk=1).like
+Comment.objects.get(pk=2).dislike
+
+Comment.objects.get(pk=1).rating
+
+Post.objects.get(pk=1).text
+Post.objects.get(pk=1).comment
+
+Post.objects.get(pk=1).time_in
+Post.objects.get(pk=1).author 
+Post.objects.get(pk=1).rating
+Post.objects.get(pk=1).header
+Post.objects.get(pk=1).name 
+Post.objects.get(pk=1).preview
+
+Comment.objects.filter(post_id=2)
+Comment.objects.get(pk=3).text
+Comment.objects.get(pk=3).time_in
+Comment.objects.get(pk=3).rating 
+Comment.objects.get(pk=3).author
+
